@@ -1,6 +1,6 @@
 # How To Do a Full Bitwarden Export with Attachments
 
-The instructions below produce a GPG-encrypted `export.tar.gz` with the following structure:
+The instructions below produce a GPG-encrypted `export.tar.gz.gpg` with the following structure:
 
 ```text
 .
