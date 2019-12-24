@@ -36,11 +36,11 @@ How does this work? The `bw list items` command outputs a JSON object with all o
 
 This method is preferable to a hard-to-audit python script which understandably makes people uneasy when processing their most sensitive credentials. The command below may not be the easiest to understand but it should be obvious there is no nefarious actions be taken on your data.
 
-### Preferred: Parent ID > Attachment Filename
+### Preferred: Item ID > Attachment Filename
 
 Most people should use this format.
 
-Format: `./export/attachments/parent_id/attachment_filename`
+Format: `./export/attachments/item_id/attachment_filename`
 
 Example: `./export/attachments/01234567-89ab-cdef-0123-4567890abcde/Backup Codes.txt`
 
@@ -48,11 +48,11 @@ Example: `./export/attachments/01234567-89ab-cdef-0123-4567890abcde/Backup Codes
 bash <(bw list items | jq -r '.[] | select(.attachments != null) | . as $parent | .attachments[] | "bw get attachment \(.id) --itemid \($parent.id) --output \"./export/attachments/\($parent.id)/\(.fileName)\""')
 ```
 
-### Alternative: Parent ID > Attachment Id
+### Alternative: Item ID > Attachment ID
 
 Only use this format if your attachment filenames may be incompatible with your target filesystem (such as invalid characters or extreme length). With this method your export will NOT contain the original filename of the attachment.
 
-Format: `./export/attachments/parent_id-attachment_id`
+Format: `./export/attachments/item_id-attachment_id`
 
 Example: `./export/attachments/01234567-89ab-cdef-0123-4567890abcde-01234567890abcdefghijklmnopqrstu`
 
