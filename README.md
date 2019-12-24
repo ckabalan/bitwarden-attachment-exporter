@@ -12,7 +12,7 @@ bw export --output ./export/bitwarden.json --format json
 
 Choose from one of the following export structures. If you don't have the `jq` tool, download it [here](https://stedolan.github.io/jq/).
 
-How does this work? The `bw list items` command outputs a JSON object with all of your credential data. This object is piped to the `jq` command which loops over the items, ignores the items without attachments, and then for each attachment forms a `bw get attachment [...]` command to download the attachment to the right local filename. The list of commands (from the output of `jq`) then passed to `bash` which runs them in sequence, performing the actual download.
+How does this work? The `bw list items` command outputs a JSON object with all of your credential data. Unlike the `export` command, the `list items` command outputs attachment information. This object is piped to the `jq` command which loops over the items, ignores the items without attachments, and then for each attachment forms a `bw get attachment [...]` command to download the attachment to the right local filename. The list of commands (from the output of `jq`) then passed to `bash` which runs them in sequence, performing the actual download.
 
 This method is preferably to a hard-to-audit python script which understandably makes people uneasy when processing their most sensitive credentials. The command below may not be the easiest to understand but it should be obvious there is no nefarious actions be taken on your data.
 
