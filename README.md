@@ -102,6 +102,7 @@ bw export --output ./export/bitwarden.json --format json
 bash <(bw list items | jq -r '.[] | select(.attachments != null) | . as $parent | .attachments[] | "bw get attachment \(.id) --itemid \($parent.id) --output \"./export/attachments/\($parent.id)/\(.fileName)\""')
 tar czvf export.tar.gz export
 rm -rf export/
-gpg --output export.tar.gz.gpg --symmetric export.tar.gz
+gpg --symmetric --cipher-algo AES256 export.tar.gz
 rm export.tar.gz
 ```
+
