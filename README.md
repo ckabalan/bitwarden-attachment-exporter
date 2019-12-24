@@ -93,7 +93,7 @@ Extract the archive:
 tar zxvf export.tar.gz
 ```
 
-## 5. Optional - Script the Process
+## 6. Optional - Script the Process
 
 The above commands can be combined to export, download attachments, archive, encrypt, and clean up all in one process.
 
