@@ -104,3 +104,7 @@ rm -rf export/
 gpg --symmetric --cipher-algo AES256 export.tar.gz
 rm export.tar.gz
 ```
+
+## License
+
+BitWarden Attachment Exporter is released under the [MIT License](https://opensource.org/licenses/MIT)
