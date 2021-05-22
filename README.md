@@ -25,8 +25,7 @@ The instructions below produce a GPG-encrypted `export.tar.gz.gpg` with the foll
 First log in into the bitwarden CLI client:
 ```bash
 bw login
-bw unlock
-export BW_SESSION=paste_token_you_just_received_here
+export BW_SESSION=$(bw unlock --raw)
 ```
 
 After logging in create your export with the following command:
