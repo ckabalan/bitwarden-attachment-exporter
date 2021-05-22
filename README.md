@@ -22,6 +22,13 @@ The instructions below produce a GPG-encrypted `export.tar.gz.gpg` with the foll
 
 ### 1. Create Basic Export
 
+First log in into the bitwarden CLI client:
+```bash
+bw login
+bw unlock
+export BW_SESSION=paste_token_you_just_received_here
+```
+
 After logging in create your export with the following command:
 
 ```bash
@@ -94,11 +101,18 @@ tar zxvf export.tar.gz
 
 ### 6. Optional - Script the Process
 
-The above commands can be combined to export, download attachments, archive, encrypt, and clean up all in one process.
+The above commands can be combined into a script that exports, downloads attachments, archives, encrypts, and cleans up all in one process.
 
 ```bash
-bw export --output ./export/bitwarden.json --format json
-bash <(bw list items | jq -r '.[] | select(.attachments != null) | . as $parent | .attachments[] | "bw get attachment \(.id) --itemid \($parent.id) --output \"./export/attachments/\($parent.id)/\(.fileName)\""')
+#!/usr/bin/env bash
+
+# fail the script as soon as an invalid password has been entered
+set -e
+
+export BW_SESSION=$(bw unlock --raw)
+bw sync --session $BW_SESSION
+bw export --output ./export/bitwarden.json --format json # bw export does not seem to accept the --session parameter, so you have to enter your password here again
+bash <(bw list items --session $BW_SESSION | jq -r '.[] | select(.attachments != null) | . as $parent | .attachments[] | "bw get attachment --session $BW_SESSION \(.id) --itemid \($parent.id) --output \"./export/attachments/\($parent.id)/\(.fileName)\""')
 tar czvf export.tar.gz export
 rm -rf export/
 gpg --symmetric --cipher-algo AES256 export.tar.gz
