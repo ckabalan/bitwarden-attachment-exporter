@@ -22,9 +22,17 @@ The instructions below produce a GPG-encrypted `export.tar.gz.gpg` with the foll
 
 ### 1. Create Basic Export
 
+First log in into the bitwarden CLI client:
+```bash
+bw login
+bw unlock
+export BW_SESSION=paste_token_you_just_received_here
+```
+
 After logging in create your export with the following command:
 
 ```bash
+bw sync
 bw export --output ./export/bitwarden.json --format json
 ```
 
@@ -94,7 +102,7 @@ tar zxvf export.tar.gz
 
 ### 6. Optional - Script the Process
 
-The above commands can be combined to export, download attachments, archive, encrypt, and clean up all in one process.
+The above commands can be combined into a script that exports, downloads attachments, archives, encrypts, and cleans up all in one process.
 
 See [bw-export.sh](./bw-export.sh) for a ready to use example.
 
