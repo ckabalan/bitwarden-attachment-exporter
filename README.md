@@ -96,14 +96,7 @@ tar zxvf export.tar.gz
 
 The above commands can be combined to export, download attachments, archive, encrypt, and clean up all in one process.
 
-```bash
-bw export --output ./export/bitwarden.json --format json
-bash <(bw list items | jq -r '.[] | select(.attachments != null) | . as $parent | .attachments[] | "bw get attachment \(.id) --itemid \($parent.id) --output \"./export/attachments/\($parent.id)/\(.fileName)\""')
-tar czvf export.tar.gz export
-rm -rf export/
-gpg --symmetric --cipher-algo AES256 export.tar.gz
-rm export.tar.gz
-```
+See [bw-export.sh](./bw-export.sh) for a ready to use example.
 
 ## License
 
